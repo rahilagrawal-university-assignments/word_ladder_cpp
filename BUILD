@@ -24,6 +24,13 @@ cc_library(
     ],
 )
 
+cc_library(
+    name = "catch",
+    srcs = ["catch.h"],
+    visibility = ["//visibility:public"],
+    deps = ["//third_party:catch"],
+)
+
 cc_test(
     name = "word_ladder_test",
     srcs = ["word_ladder_test.cpp"],

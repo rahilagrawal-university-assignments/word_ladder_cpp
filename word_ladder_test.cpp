@@ -33,41 +33,51 @@
     at the bottom of this file.
 */
 
-#include "assignments/wl/word_ladder.h"
+#include "word_ladder.h"
 #include "catch.h"
 
 std::unordered_set<std::string> lexicon = {"word", "ford", "form", "farm", "fard", "warm",
-                                           "worm", "ward", "cat",  "cog",  "dog",  "cot",
-                                           "dot",  "xyz",  "work", "pork", "fork"};
+                                           "worm", "ward", "cat", "cog", "dog", "cot",
+                                           "dot", "xyz", "work", "pork", "fork"};
 
-SCENARIO("Start word and end word are different but have no ladders") {
-  GIVEN("Both words are in the lexicon") {
+SCENARIO("Start word and end word are different but have no ladders")
+{
+  GIVEN("Both words are in the lexicon")
+  {
     auto start = "cat";
     auto end = "xyz";
     REQUIRE(lexicon.count(start) > 0);
     REQUIRE(lexicon.count(end) > 0);
-    WHEN("Ladders are searched for") {
+    WHEN("Ladders are searched for")
+    {
       auto paths = GetPaths(start, end, lexicon);
       THEN("Then there is no ladder") { REQUIRE(paths.size() == 0); }
     }
   }
 }
 
-SCENARIO("Start word is exactly one letter away from end word - Exactly one path of length 2") {
-  GIVEN("Start word is work") {
+SCENARIO("Start word is exactly one letter away from end word - Exactly one path of length 2")
+{
+  GIVEN("Start word is work")
+  {
     auto start = "work";
     REQUIRE(lexicon.count(start) > 0);
-    AND_GIVEN("End word is pork") {
+    AND_GIVEN("End word is pork")
+    {
       auto end = "pork";
       REQUIRE(lexicon.count(end) > 0);
-      WHEN("Ladders are searched for") {
+      WHEN("Ladders are searched for")
+      {
         auto paths = GetPaths(start, end, lexicon);
-        THEN("There is exactly one ladder") {
+        THEN("There is exactly one ladder")
+        {
           REQUIRE(paths.size() == 1);
-          AND_THEN("The ladder length is 2") {
+          AND_THEN("The ladder length is 2")
+          {
             auto path = paths[0];
             REQUIRE(path.size() == 2);
-            AND_THEN("The ladder is: awake aware") {
+            AND_THEN("The ladder is: awake aware")
+            {
               REQUIRE(path[0].compare("work") == 0);
               REQUIRE(path[1].compare("pork") == 0);
             }
@@ -78,16 +88,21 @@ SCENARIO("Start word is exactly one letter away from end word - Exactly one path
   }
 }
 
-SCENARIO("All ladders are of same length") {
-  GIVEN("Start word is word") {
+SCENARIO("All ladders are of same length")
+{
+  GIVEN("Start word is word")
+  {
     auto start = "word";
     REQUIRE(lexicon.count(start) > 0);
-    AND_GIVEN("End word is farm") {
+    AND_GIVEN("End word is farm")
+    {
       auto end = "farm";
       REQUIRE(lexicon.count(end) > 0);
-      WHEN("Ladders are searched for") {
+      WHEN("Ladders are searched for")
+      {
         auto paths = GetPaths(start, end, lexicon);
-        THEN("There are 2 or more ladders") {
+        THEN("There are 2 or more ladders")
+        {
           REQUIRE(paths.size() >= 2);
           auto same_size = true;
           for (auto it = paths.begin() + 1; it != paths.end(); ++it)
@@ -99,24 +114,31 @@ SCENARIO("All ladders are of same length") {
   }
 }
 
-SCENARIO("Ladders are in alphabetical order") {
-  GIVEN("Start word is cat") {
+SCENARIO("Ladders are in alphabetical order")
+{
+  GIVEN("Start word is cat")
+  {
     auto start = "cat";
     REQUIRE(lexicon.count(start) > 0);
-    AND_GIVEN("End word is dog") {
+    AND_GIVEN("End word is dog")
+    {
       auto end = "dog";
       REQUIRE(lexicon.count(end) > 0);
-      WHEN("Ladders are checked") {
+      WHEN("Ladders are checked")
+      {
         auto paths = GetPaths(start, end, lexicon);
-        THEN("There are exactly 2 ladders") {
+        THEN("There are exactly 2 ladders")
+        {
           REQUIRE(paths.size() == 2);
-          AND_THEN("First ladder is : cat cot cog dog") {
+          AND_THEN("First ladder is : cat cot cog dog")
+          {
             auto path = paths[0];
             REQUIRE(path[0].compare("cat") == 0);
             REQUIRE(path[1].compare("cot") == 0);
             REQUIRE(path[2].compare("cog") == 0);
             REQUIRE(path[3].compare("dog") == 0);
-            AND_THEN("Second ladder is : cat cot dot dog") {
+            AND_THEN("Second ladder is : cat cot dot dog")
+            {
               path = paths[1];
               REQUIRE(path[0].compare("cat") == 0);
               REQUIRE(path[1].compare("cot") == 0);
